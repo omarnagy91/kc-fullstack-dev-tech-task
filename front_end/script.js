@@ -1,9 +1,10 @@
+// Fetch and display categories and courses on DOM content load
 document.addEventListener('DOMContentLoaded', function () {
-    // Fetch and display categories and courses
     fetchCategories();
     fetchCourses();
 });
 
+// Fetch categories from the API and handle the response
 function fetchCategories() {
     fetch('http://api.cc.localhost/categories')
         .then(response => response.json())
@@ -11,6 +12,7 @@ function fetchCategories() {
         .catch(error => console.error('Error fetching categories:', error));
 }
 
+// Display categories in the category tree
 function displayCategories(categories) {
     const categoryTree = document.getElementById('category-tree');
     categories.forEach(category => {
@@ -22,6 +24,7 @@ function displayCategories(categories) {
     });
 }
 
+// Fetch courses from the API, optionally filtered by category ID
 function fetchCourses(categoryId = null) {
     let url = 'http://api.cc.localhost/courses';
     if (categoryId) {
@@ -33,6 +36,7 @@ function fetchCourses(categoryId = null) {
         .catch(error => console.error('Error fetching courses:', error));
 }
 
+// Display courses in the course list
 function displayCourses(courses) {
     const courseList = document.getElementById('course-list');
     courseList.innerHTML = ''; // Clear existing courses
@@ -49,19 +53,18 @@ function displayCourses(courses) {
     });
 }
 
+// Event delegation for category click
 document.getElementById('category-tree').addEventListener('click', function (event) {
     if (event.target.classList.contains('category-item')) {
         selectCategory(event.target);
     }
 });
 
+// Handle selecting a category and updating the display
 function selectCategory(categoryElement) {
-    // Update header title
     document.getElementById('header-title').textContent = categoryElement.textContent;
-    // Update selected category styling
     document.querySelectorAll('.category-item').forEach(item => item.classList.remove('selected'));
     categoryElement.classList.add('selected');
-    // Fetch and display courses for the selected category
     const categoryId = categoryElement.dataset.id;
     fetchCourses(categoryId);
 }

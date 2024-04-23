@@ -9,20 +9,34 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    /* Adjust based on design */
+    margin: auto;
+}
+
+.content {
+    display: flex;
+}
+
 header {
-    background-color: #f8f8f8;
+    width: 100%;
     padding: 20px;
     text-align: center;
 }
 
 #category-tree {
-    width: 200px;
+    width: 250px;
+    /* Adjust based on design */
     position: fixed;
     left: 0;
     top: 0;
     bottom: 0;
     overflow-y: auto;
     background-color: #eee;
+    /* Change to match the screenshot */
     padding: 20px;
 }
 
@@ -33,7 +47,6 @@ header {
 
 #category-tree .category-item.selected {
     background-color: blue;
-    color: white;
 }
 
 #category-tree .category-item .sub-category.selected {
@@ -42,12 +55,18 @@ header {
     color: inherit;
 }
 
+#category-tree .category-item .subcategory.selected {
+    border-left: 4px solid orange;
+    /* Add this for selected subcategory */
+}
+
 #course-list {
-    margin-left: 200px;
+    flex: 1;
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    /* Responsive grid */
+    grid-gap: 20px;
 }
 
 .course-card {
@@ -55,15 +74,23 @@ header {
     padding: 10px;
     border-radius: 5px;
     position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Add shadow */
 }
 
 .course-card .main-category {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: white;
+
     padding: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    /* Ensure solid white background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Adjust shadow */
+
+    opacity: 0.9;
+    /* Adjust for transparency */
 }
 
 .course-card h3 {
@@ -81,6 +108,9 @@ header {
 
 @media (max-width: 768px) {
     #course-list {
+        margin-left: 0;
+        /* Remove margin for mobile */
         grid-template-columns: 1fr;
+        /* 1 column on mobile */
     }
 }

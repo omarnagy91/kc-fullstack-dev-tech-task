@@ -1,7 +1,8 @@
 <?php
 
-require_once '../config/Database.php';  // Change 'include_once' to 'require_once'
-require_once '../models/Category.php';  // Change 'include_once' to 'require_once'
+// Correctly ensure usage of 'require_once' instead of 'include_once'
+require_once '../config/Database.php';
+require_once '../models/Category.php';
 
 $database = new Database();
 $db = $database->connect();
