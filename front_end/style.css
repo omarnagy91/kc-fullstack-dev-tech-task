@@ -1,0 +1,164 @@
+/* Base styles */
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.page-title {
+    font-size: 34px;
+    padding-bottom: 20px;
+    font-weight: 800;
+}
+
+.content {
+    display: flex;
+}
+
+.sidebar {
+    flex: 0 0 250px;
+    margin-right: 20px;
+}
+
+.categories-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.category-item {
+    position: relative;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.category-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: left;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.category-btn:hover {
+    background-color: #e0e0e0;
+}
+
+
+ul ul {
+    list-style-type: none;
+}
+
+ul {
+    display: block;
+    list-style-type: none;
+    padding-inline-start: 20px;
+}
+
+.category-item.parent-selected>.category-btn {
+    background-color: lightblue;
+}
+
+.category-item.selected>.category-btn {
+    background-color: lightblue;
+    border-left: 4px solid orange;
+}
+
+.course-count {
+    color: #999;
+    font-size: 0.9em;
+}
+
+.main {
+    flex: 1;
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 cards per row on desktop */
+    grid-gap: 20px;
+    /* Increased gap between cards */
+}
+
+.course-card {
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+.course-image {
+    width: 100%;
+    height: 65%;
+    object-fit: cover;
+}
+
+.course-category {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.course-details {
+    padding: 20px;
+    margin-bottom: 5px;
+}
+
+.course-name {
+    font-size: 18px;
+    margin: 0 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.course-description {
+    font-size: 1rem;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 1024px) {
+    .courses-grid {
+        grid-template-columns: 1fr;
+        /* 1 card per row on smaller screens, now including tablets */
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+    .course-description {
+
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+
+    }
+
+}

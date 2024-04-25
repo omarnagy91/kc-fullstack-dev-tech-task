@@ -4,19 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Course Catalog</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
-      <header>
-        <h1 id="header-title">Course Catalog</h1>
+      <header class="header">
+        <h1 class="page-title">Course Catalog</h1>
       </header>
       <div class="content">
-        <aside id="category-tree">
-          <!-- Category tree will be populated by script.js -->
+        <aside class="sidebar">
+          <nav class="categories">
+            <ul class="categories-list"></ul>
+          </nav>
         </aside>
-        <main id="course-list">
-          <!-- Course cards will be populated by script.js -->
+        <main class="main">
+          <div class="courses-grid"></div>
         </main>
       </div>
     </div>

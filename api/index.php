@@ -1,25 +1,50 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-if (isset($_GET['url'])) {
-    $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+// Include required files
+require_once 'config/database.php';
+require_once 'routes/categories.php';
+require_once 'routes/courses.php';
 
-    // Route the request to the correct controller and method
-    switch ($url[0]) {
-        case 'categories':
-            require_once 'controllers/CategoryController.php';
-            break;
-        case 'courses':
-            require_once 'controllers/CourseController.php';
-            break;
-        default:
-            // Invalid URL
-            echo json_encode(array('message' => 'Invalid Endpoint'));
-            break;
-    }
+// Set content type header to JSON
+header('Content-Type: application/json');
+
+// Get the request method and URI
+$method = $_SERVER['REQUEST_METHOD'];
+$request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+// Remove trailing slash from request URI
+$request_uri = rtrim($request_uri, '/');
+
+// Define the base path for the API
+$base_path = '/';
+
+// Remove base path from request URI
+$path = substr($request_uri, strlen($base_path));
+
+// Split the path into segments
+$segments = explode('/', $path);
+
+// Get the resource and ID from the segments
+$resource = $segments[0] ?? '';
+$id = $segments[1] ?? null;
+
+// Define routes
+$routes = [
+    'categories' => 'handleCategoryRequest',
+    'courses' => 'handleCourseRequest',
+];
+
+// Check if the resource exists in the routes
+if (array_key_exists($resource, $routes)) {
+    // Call the corresponding handler function
+    $handler = $routes[$resource];
+    $handler($method, $id);
 } else {
-    // No URL set
-    echo json_encode(array('message' => 'No Endpoint Specified'));
+    // Return 404 if the resource is not found
+    http_response_code(404);
+    echo json_encode(['message' => 'Resource not found']);
 }

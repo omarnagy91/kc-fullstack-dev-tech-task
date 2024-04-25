@@ -23,7 +23,8 @@ services:
       MYSQL_USER: test_user
       MYSQL_PASSWORD: test_password
     volumes:
-        - ./database/volume:/var/lib/mysql
+      - ./database/volume:/var/lib/mysql
+      - ./database/migrations:/docker-entrypoint-initdb.d
     hostname: database.cc.localhost
     labels:
       - traefik.tcp.routers.mysql.entrypoints=mysql
@@ -44,6 +45,8 @@ services:
     hostname: api.cc.localhost
     labels:
       - traefik.http.routers.api.rule=Host(`api.cc.localhost`)
+    command: sh -c " a2enmod rewrite && docker-php-ext-install pdo_mysql && apache2-foreground"
+
   front:
     image: php:8.3-apache
     container_name: front
